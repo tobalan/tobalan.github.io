@@ -4,7 +4,7 @@
         <dir minversion="19.0">
             <info compressed="false">https://raw.githubusercontent.com/tobalan/tobalan.github.io/main/addons.xml</info>
             <checksum>https://raw.githubusercontent.com/tobalan/tobalan.github.io/main/addons.xml.md5</checksum>
-            <datadir zip="true">https://cdn.jsdelivr.net/gh/tobalan/</datadir>
+            <datadir zip="true">https://raw.githubusercontent.com/tobalan/tobalan.github.io/main/Zips</datadir>
         </dir>
     </extension>
     <extension point="xbmc.addon.metadata">
