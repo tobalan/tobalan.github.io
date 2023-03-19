@@ -34,27 +34,14 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install setuptools==57.5.0
-          # sudo pip3 install pseudo-microbit
-          pip install pyminifier
-          ls -lart
-          pyminifier --obfuscate --nonlatin plugin.video.jiotv/*.py
-          rsync -va minified/ plugin.video.jiotv/
-          ls -lart
-          rm -rf minified
-          cd plugin.video.jiotv/resources
-          ls -lart
-          pyminifier --obfuscate --nonlatin lib/*.py
-          rsync -va minified/ lib/
-          ls -lart
-          rm -rf minified
-          ls -lart
-         
+          pip install python-minifier
+          pyminify plugin.video.jiotv/ --in-place
+
       - name: Install zip
         uses: montudor/action-zip@v1
 
       - name: Zip output
-        run: zip -qq -r plugin.video.jiotv-${{ steps.octokit.outputs.tag }}-1.zip plugin.video.jiotv -x "plugin.video.jiotv/.github/*" "plugin.video.jiotv/.git/*"
+        run: zip -qq -r plugin.video.jiotv-${{ steps.octokit.outputs.tag }}.zip plugin.video.jiotv -x "plugin.video.jiotv/.github/*" "plugin.video.jiotv/.git/*"
 
       - uses: actions/checkout@v3
         with:
@@ -63,7 +50,7 @@ jobs:
       - name: pull latest
         run: |
           git pull
-          mv ../plugin.video.jiotv-${{ steps.octokit.outputs.tag }}-1.zip Zips/plugin.video.jiotv
+          mv ../plugin.video.jiotv-${{ steps.octokit.outputs.tag }}.zip Zips/plugin.video.jiotv
         # Commit all changed files back to the repository
         # cd ..
         # ls -lart
