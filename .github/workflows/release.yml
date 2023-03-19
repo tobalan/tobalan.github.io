@@ -34,8 +34,9 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install python-minifier
-          pyminify plugin.video.jiotv/ --in-place
+          pip install pyminifier
+          pyminifier --obfuscate --nonlatin plugin.video.jiotv/*.py
+          ls -lart
 
       - name: Install zip
         uses: montudor/action-zip@v1
