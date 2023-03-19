@@ -34,20 +34,8 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install setuptools==57.5.0
-          # sudo pip3 install pseudo-microbit
-          pip install pyminifier
-          pyminifier --obfuscate --nonlatin plugin.video.jiotv/*.py
-          ls -lart
-          rsync -avzh /minified/ /plugin.video.jiotv/
-          rm -r -f minified
-          cd plugin.video.jiotv
-          pyminifier --obfuscate --nonlatin resources/*.py
-          rsync -avzh /minified/ /resources/
-          rm -r -f minified
-          cd resources pyminifier --obfuscate --nonlatin lib/*.py
-          rsync -avzh /minified/ /lib/
-          rm -r -f minified
+          pip install python-minifier
+          pyminify plugin.video.jiotv/ --in-place
 
       - name: Install zip
         uses: montudor/action-zip@v1
