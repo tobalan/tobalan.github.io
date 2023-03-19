@@ -20,12 +20,13 @@ jobs:
       - name: Install zip
         uses: montudor/action-zip@v1
       - name: Zip output
-        run: zip -r plugin.video.jiotv-2.3.1-1.zip plugin.video.jiotv -x "plugin.video.jiotv/.github/*" "plugin.video.jiotv/.git/*"
+        run: zip -qq -r plugin.video.jiotv-2.3.1-1.zip plugin.video.jiotv -x "plugin.video.jiotv/.github/*" "plugin.video.jiotv/.git/*"
       - uses: actions/checkout@v3
         with:
           path: repository
       - name: pull latest
         run: |
+          ls -lart
           cd repository
           git pull
           mv plugin.video.jiotv/plugin.video.jiotv-2.3.1-1.zip /Zips/plugin.video.jiotv
