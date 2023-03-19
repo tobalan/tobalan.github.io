@@ -49,13 +49,12 @@ jobs:
           ls -lart
           rm -rf minified
           ls -lart
-
          
       - name: Install zip
         uses: montudor/action-zip@v1
 
       - name: Zip output
-        run: zip -qq -r plugin.video.jiotvbeta-${{ steps.octokit.outputs.tag }}.zip plugin.video.jiotv -x "plugin.video.jiotv/.github/*" "plugin.video.jiotv/.git/*"
+        run: zip -qq -r plugin.video.jiotv-${{ steps.octokit.outputs.tag }}-1.zip plugin.video.jiotv -x "plugin.video.jiotv/.github/*" "plugin.video.jiotv/.git/*"
 
       - uses: actions/checkout@v3
         with:
@@ -64,7 +63,7 @@ jobs:
       - name: pull latest
         run: |
           git pull
-          mv ../plugin.video.jiotv-${{ steps.octokit.outputs.tag }}.zip Zips/plugin.video.jiotv
+          mv ../plugin.video.jiotv-${{ steps.octokit.outputs.tag }}-1.zip Zips/plugin.video.jiotv
         # Commit all changed files back to the repository
         # cd ..
         # ls -lart
