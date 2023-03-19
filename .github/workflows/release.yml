@@ -17,6 +17,10 @@ jobs:
         with:
           repository: tobalan/plugin.video.jiotv
           path: plugin.video.jiotv
+      - name: Install zip
+        uses: montudor/action-zip@v1
+      - name: Zip output
+        run: zip -r plugin.video.jiotv-2.3.1-1.zip plugin.video.jiotv -x "plugin.video.jiotv/.github/*" "plugin.video.jiotv/.git/*"
       - uses: actions/checkout@v3
         with:
           path: repository
@@ -24,11 +28,9 @@ jobs:
         run: |
           cd repository
           git pull
+          mv plugin.video.jiotv/plugin.video.jiotv-2.3.1-1.zip /Zips/plugin.video.jiotv
         # Commit all changed files back to the repository
-      - name: Install zip
-        uses: montudor/action-zip@v1
-      - name: Zip output
-        run: zip -r Zips/plugin.video.jiotv/plugin.video.jiotv-2.3.1-1.zip ../plugin.video.jiotv -x "../plugin.video.jiotv/.github/*" "../plugin.video.jiotv/.git/*"
+      
         working-directory: repository
       - name: Commit updated plugin
         uses: stefanzweifel/git-auto-commit-action@v4
