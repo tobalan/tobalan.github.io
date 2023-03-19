@@ -26,10 +26,8 @@ jobs:
           path: repository
       - name: pull latest
         run: |
-          ls -lart
-          cd repository
           git pull
-          mv plugin.video.jiotv/plugin.video.jiotv-2.3.1-1.zip /Zips/plugin.video.jiotv
+          mv ../plugin.video.jiotv/plugin.video.jiotv-2.3.1-1.zip Zips/plugin.video.jiotv
         # Commit all changed files back to the repository
       
         working-directory: repository
