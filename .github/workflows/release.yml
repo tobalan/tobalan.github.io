@@ -40,7 +40,7 @@ jobs:
           pyminifier --obfuscate --nonlatin plugin.video.jiotv/*.py
           ls -lart
           # rsync -avzh /minified/ /plugin.video.jiotv/
-          rsync -va --delete-after minified/ plugin.video.jiotv/
+          rsync -va minified/ plugin.video.jiotv/
           ls -lart
           cd plugin.video.jiotv
           ls -lart
