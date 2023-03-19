@@ -1,0 +1,31 @@
+name: EPG Service
+
+on:
+  workflow_dispatch:
+
+jobs:
+  epg:
+    runs-on: ubuntu-latest
+
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: tobalan/plugin.video.jiotv
+          path: plugin.video.jiotv
+      - uses: actions/checkout@v3
+      - name: pull latest
+        run: |
+          git pull
+        # Commit all changed files back to the repository
+      - uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r Zips/plugin.video.jiotv/plugin.video.jiotv-2.3.1-1.zip plugin.video.jiotv -x "plugin.video.jiotv/.github/*" "plugin.video.jiotv/.git/*"
+      - name: Commit updated plugin
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Automated plugin
