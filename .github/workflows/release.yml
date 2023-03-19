@@ -15,12 +15,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
+          fetch-depth: 0
           repository: tobalan/plugin.video.jiotv
           path: plugin.video.jiotv
+      - name: 'Get Previous tag'
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+        with:
+          fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
+      - name: chekout latest tag
+        run: |
+          git checkout ${{ steps.previoustag.outputs.tag }} -b main
       - name: Install zip
         uses: montudor/action-zip@v1
       - name: Zip output
-        run: zip -qq -r plugin.video.jiotv-2.3.1-1.zip plugin.video.jiotv -x "plugin.video.jiotv/.github/*" "plugin.video.jiotv/.git/*"
+        run: zip -qq -r plugin.video.jiotv-${{ steps.previoustag.outputs.tag }}.zip plugin.video.jiotv -x "plugin.video.jiotv/.github/*" "plugin.video.jiotv/.git/*"
       - uses: actions/checkout@v3
         with:
           path: repository
@@ -28,11 +37,11 @@ jobs:
         run: |
           git pull
           mv ../plugin.video.jiotv-2.3.1-1.zip Zips/plugin.video.jiotv
+        # Commit all changed files back to the repository
           # cd ..
           # ls -lart
           # cd plugin.video.jiotv
           # ls -lart
-        # Commit all changed files back to the repository
       
         working-directory: repository
       - name: Commit updated plugin
