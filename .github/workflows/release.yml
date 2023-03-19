@@ -27,7 +27,7 @@ jobs:
       - name: pull latest
         run: |
           git pull
-          mv ../plugin.video.jiotv/plugin.video.jiotv-2.3.1-1.zip Zips/plugin.video.jiotv
+          # mv ../plugin.video.jiotv/plugin.video.jiotv-2.3.1-1.zip Zips/plugin.video.jiotv
           cd ..
           ls -lart
           cd plugin.video.jiotv
