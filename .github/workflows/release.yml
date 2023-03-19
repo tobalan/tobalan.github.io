@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  epg:
+  release-plugin:
     runs-on: ubuntu-latest
 
     permissions:
@@ -33,4 +33,5 @@ jobs:
       - name: Commit updated plugin
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
+          repository: repository
           commit_message: Automated plugin
