@@ -29,7 +29,7 @@ jobs:
         uses: montudor/action-zip@v1
       - name: Zip output
         # run: zip -qq -r Zips/plugin.video.jiotv/plugin.video.jiotv-2.3.1-1.zip ../plugin.video.jiotv -x "plugin.video.jiotv/.github/*" "plugin.video.jiotv/.git/*"
-        run: zip -r Zips/plugin.video.jiotv/plugin.video.jiotv-2.3.1-1.zip ../plugin.video.jiotv -x "plugin.video.jiotv/.github/*" "plugin.video.jiotv/.git/*"
+        run: zip -r Zips/plugin.video.jiotv/plugin.video.jiotv-2.3.1-1.zip ../plugin.video.jiotv -x "../plugin.video.jiotv/.github/*" "../plugin.video.jiotv/.git/*"
         working-directory: repository
       - name: Commit updated plugin
         uses: stefanzweifel/git-auto-commit-action@v4
