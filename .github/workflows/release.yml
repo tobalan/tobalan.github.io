@@ -34,14 +34,23 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install python-minifier
-          pyminify plugin.video.jiotv/ --in-place
+          pip install setuptools==57.5.0
+          # sudo pip3 install pseudo-microbit
+          pip install pyminifier
+          pyminifier --obfuscate --nonlatin plugin.video.jiotv/*.py
+          ls -lart
+          rsync -avzh /minified /plugin.video.jiotv
+          cd plugin.video.jiotv
+          pyminifier --obfuscate --nonlatin resources/*.py
+          rsync -avzh /minified /resources
+          cd resources pyminifier --obfuscate --nonlatin lib/*.py
+          rsync -avzh /minified /lib
 
       - name: Install zip
         uses: montudor/action-zip@v1
 
       - name: Zip output
-        run: zip -qq -r plugin.video.jiotv-${{ steps.octokit.outputs.tag }}.zip plugin.video.jiotv -x "plugin.video.jiotv/.github/*" "plugin.video.jiotv/.git/*"
+        run: zip -qq -r plugin.video.jiotvbeta-${{ steps.octokit.outputs.tag }}.zip plugin.video.jiotv -x "plugin.video.jiotv/.github/*" "plugin.video.jiotv/.git/*"
 
       - uses: actions/checkout@v3
         with:
