@@ -25,6 +25,17 @@ jobs:
           repository: tobalan/plugin.video.jiotv
           path: plugin.video.jiotv
           ref: ${{ steps.octokit.outputs.tag }}  
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          cd ..
+          ls -lart
+          python -m pip install --upgrade pip
+          pip install python-minifier
+          pyminify plugin.video.jiotv/ --in-place
       - name: Install zip
         uses: montudor/action-zip@v1
       - name: Zip output
