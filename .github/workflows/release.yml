@@ -42,6 +42,8 @@ jobs:
           # rsync -avzh /minified/ /plugin.video.jiotv/
           rsync -va minified/ plugin.video.jiotv/
           rm -rf minified
+          pyminifier --obfuscate --nonlatin plugin.video.jiotv/resources*.py
+          # pyminifier --obfuscate --nonlatin plugin.video.jiotv/resources/lib*.py
           ls -lart
           cd plugin.video.jiotv
           ls -lart
