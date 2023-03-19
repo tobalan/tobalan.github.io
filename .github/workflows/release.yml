@@ -39,12 +39,17 @@ jobs:
           pip install pyminifier
           pyminifier --obfuscate --nonlatin plugin.video.jiotv/*.py
           ls -lart
-          rsync -avzh /minified/ /plugin.video.jiotv/
+          # rsync -avzh /minified/ /plugin.video.jiotv/
+          rsync -va --delete-after minified/ plugin.video.jiotv/
+          ls -lart
           cd plugin.video.jiotv
-          pyminifier --obfuscate --nonlatin resources/*.py
-          rsync -avzh /minified/ /resources/
-          cd resources pyminifier --obfuscate --nonlatin lib/*.py
-          rsync -avzh /minified/ /lib/
+          ls -lart
+
+
+          # pyminifier --obfuscate --nonlatin resources/*.py
+          # rsync -avzh /minified/ /resources/
+          # cd resources pyminifier --obfuscate --nonlatin lib/*.py
+          # rsync -avzh /minified/ /lib/
 
       - name: Install zip
         uses: montudor/action-zip@v1
