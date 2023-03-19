@@ -37,12 +37,20 @@ jobs:
           pip install setuptools==57.5.0
           # sudo pip3 install pseudo-microbit
           pip install pyminifier
-          cd plugin.video.jiotv/resources
+          pyminifier --obfuscate --nonlatin plugin.video.jiotv/*.py
+          rsync -va minified/ plugin.video.jiotv/
+          rm -rf minified
+          cd plugin.video.jiotv
+          pyminifier --obfuscate --nonlatin resources/*.py
+          rsync -va minified/ resources/
+          rm -rf minified
+          cd resources
           pyminifier --obfuscate --nonlatin lib/*.py
+          rsync -va minified/ lib/
           ls -lart
           # rsync -avzh /minified/ /plugin.video.jiotv/
-          rsync -va minified/ lib/
-          rm -rf minified
+          # rsync -va minified/ lib/
+          # rm -rf minified
           # pyminifier --obfuscate --nonlatin plugin.video.jiotv/resources/*.py
           # pyminifier --obfuscate --nonlatin plugin.video.jiotv/resources/lib/*.py
           ls -lart
