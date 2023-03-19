@@ -45,11 +45,11 @@ jobs:
           ls -lart
           cd plugin.video.jiotv
           ls -lart
-          pyminifier --obfuscate --nonlatin resources/*.py
+          pyminifier --obfuscate --nonlatin --destdir=/min resources/*.py
           ls -lart
-          rsync -va minified/ resources/
-          rm -rf minified
-          ls -lart
+          # rsync -va minified/ resources/
+          # rm -rf minified
+          # ls -lart
 
 
 
