@@ -15,44 +15,48 @@ jobs:
     steps:
       - uses: oprypin/find-latest-tag@v1
         with:
-          repository: tobalan/plugin.video.jiotv  # The repository to scan.
-          releases-only: true  # We know that all relevant tags have a GitHub release for them.
-        id: octokit  # The step ID to refer to later.
+          repository: tobalan/plugin.video.jiotv # The repository to scan.
+          releases-only: true # We know that all relevant tags have a GitHub release for them.
+        id: octokit # The step ID to refer to later.
 
       - run: echo "plugin.video.jiotv is at version ${{ steps.octokit.outputs.tag }}"
       - uses: actions/checkout@v3
         with:
           repository: tobalan/plugin.video.jiotv
           path: plugin.video.jiotv
-          ref: ${{ steps.octokit.outputs.tag }}  
+          ref: ${{ steps.octokit.outputs.tag }}
+
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: 3.
+
       - name: Install dependencies
         run: |
-          cd ..
-          ls -lart
           python -m pip install --upgrade pip
           pip install python-minifier
           pyminify plugin.video.jiotv/ --in-place
+
       - name: Install zip
         uses: montudor/action-zip@v1
+
       - name: Zip output
         run: zip -qq -r plugin.video.jiotv-${{ steps.octokit.outputs.tag }}.zip plugin.video.jiotv -x "plugin.video.jiotv/.github/*" "plugin.video.jiotv/.git/*"
+
       - uses: actions/checkout@v3
         with:
           path: repository
+
       - name: pull latest
         run: |
           git pull
           mv ../plugin.video.jiotv-${{ steps.octokit.outputs.tag }}.zip Zips/plugin.video.jiotv
         # Commit all changed files back to the repository
-          # cd ..
-          # ls -lart
-          # cd plugin.video.jiotv
-          # ls -lart
-      
+        # cd ..
+        # ls -lart
+        # cd plugin.video.jiotv
+        # ls -lart
+
         working-directory: repository
       - name: Commit updated plugin
         uses: stefanzweifel/git-auto-commit-action@v4
