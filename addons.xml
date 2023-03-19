@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addons>
+	<addon id="plugin.video.MXPlayer" name="MXPlayer" version="1.0.6" provider-name="Ajay K">
+		<requires>
+			<import addon="script.module.kodi-six" />
+			<import addon="script.module.six" />
+			<import addon="script.module.routing" version="0.2.0"/>
+			<import addon="script.module.requests" version="2.7.0"/>
+			<import addon="script.module.resolveurl" version="5.1.0"/>
+			<import addon="script.module.web-pdb" />
+		</requires>
+		<extension point="xbmc.python.pluginsource" library="main.py">
+			<provides>video</provides>
+		</extension>
+		<extension point="xbmc.addon.metadata">
+			<summary lang="en_GB"></summary>
+			<description lang="en_GB"></description>
+			<language></language>
+			<platform>all</platform>
+			<license>GPL-3.0</license>
+			<forum></forum>
+			<website></website>
+			<email></email>
+			<source></source>
+			<news></news>
+			<disclaimer>This 3rd party addon is not in any way commissioned or endorsed by Mx player</disclaimer>
+			<assets>
+				<icon>icon.png</icon>
+				<fanart>fanart.png</fanart>
+			</assets>
+		</extension>
+	</addon>
+	<addon id="plugin.video.voot" name="Voot" version="2.0.8" provider-name="Ajay K">
+		<requires>
+			<import addon="script.module.six" />
+			<import addon="script.module.kodi-six" />
+			<import addon="script.module.requests" version="2.4.3"/>
+			<import addon="script.common.plugin.cache" version="2.5.5"/>
+			<import addon="script.module.web-pdb" />
+		</requires>
+		<extension point="xbmc.python.pluginsource" library="default.py">
+			<provides>video</provides>
+		</extension>
+		<extension point="xbmc.addon.metadata">
+			<summary>VOOT - Watch Free Online TV Shows, Movies, Kids Shows HD Quality on VOOT.</summary>
+			<description>Voot is a video on-demand platform, part of Viacom 18 Digital Ventures, the digital arm of Viacom 18 covering Colors (Hindi), MTV, Nickelodeon, Viacom18 Motion Pictures, Colors Kannada, Colors Marathi, Colors Bangla, Colors Super and Colors Gujarati, Voot offers the biggest TV Shows, Blockbuster Movies, your favorite Toons &amp; Voot Originals, absolutely Free.</description>
+			<platform>all</platform>
+			<license>GPL-3.0</license>
+			<website>https://www.voot.com/</website>
+			<disclaimer>This 3rd party addon is not in any way commissioned or endorsed by Viacom 18</disclaimer>
+			<assets>
+				<icon>icon.png</icon>
+				<fanart>fanart.jpg</fanart>
+			</assets>
+		</extension>
+	</addon>
+	<addon id="plugin.video.zee5" name="Zee 5" version="2.1.20" provider-name="Ajay K">
+		<requires>
+			<import addon="script.module.six" />
+			<import addon="script.module.kodi-six" />
+			<import addon="script.module.routing" version="0.2.0"/>
+			<import addon="script.module.requests" version="2.7.0"/>
+			<import addon="script.common.plugin.cache" version="2.5.5"/>
+			<import addon="script.module.inputstreamhelper" version="0.5.2"/>
+			<import addon="script.module.web-pdb"/>
+		</requires>
+		<extension point="xbmc.python.pluginsource" library="main.py">
+			<provides>video</provides>
+		</extension>
+		<extension point="xbmc.addon.metadata">
+			<summary lang="en_GB">At ZEE5, we believe that for entertainment to come alive, you need to feel it! With 12 Navigational, Featured languages across TV Shows, Movies, Original Web Series, International Shows, Acclaimed Plays and much more. Enjoy unlimited entertainment with 80+ LIVE TV channels and 100,000+ hours of video content in the language of your comfort for an experience that feels like home.</summary>
+			<description lang="en_GB">
+			At ZEE5, we believe that for entertainment to come alive, you need to feel it! With 12 Navigational, Featured languages across TV Shows, Movies, Original Web Series, International Shows, Acclaimed Plays and much more. Enjoy unlimited entertainment with 80+ LIVE TV channels and 100,000+ hours of video content in the language of your comfort for an experience that feels like home.
+			</description>
+			<language></language>
+			<platform>all</platform>
+			<license>GPL-3.0</license>
+			<forum></forum>
+			<website></website>
+			<email></email>
+			<source></source>
+			<news></news>
+			<disclaimer></disclaimer>
+			<assets>
+				<icon>icon.jpg</icon>
+				<fanart>fanart.jpg</fanart>
+			</assets>
+		</extension>
+	</addon>
+	<addon id="plugin.video.hotstar" name="Disney+ Hotstar" provider-name="AjayK, botallen" version="1.2.2">
+		<requires>
+			<import addon="xbmc.python" version="3.0.0"/>
+			<import addon="script.module.codequick" version="1.0.2"/>
+			<import addon="script.module.inputstreamhelper" version="0.5.2"/>
+		</requires>
+		<extension point="xbmc.python.pluginsource" library="addon.py">
+			<provides>video</provides>
+		</extension>
+		<extension point="xbmc.addon.metadata">
+			<summary lang="en_GB">Stream Movies, TV Shows and More from Disney+ Hotstar in Kodi.</summary>
+			<description lang="en_GB">Disney+ Hotstar (erstwhile Hotstar) is India’s largest premium streaming platform that has changed the way Indians watch their entertainment - from their favourite TV shows and movies to sporting extravaganzas. With the widest range of content in India, Disney+ Hotstar offers more than 100,000 hours of TV Shows and Movies in 8 languages, regional and national News, and coverage of every major global sporting event, including the IPL. Disney+ Hotstar Premium has a large selection of Disney+ Originals, latest American shows, blockbuster Hollywood movies and award-winning content from International studios; whereas with Disney+ Hotstar VIP, users get access to Disney content in local languages, exclusive new content from the Hotstar Specials label, access to STAR network serials before television, and the latest and best of live sporting action. In its earlier avatar, the Hotstar mobile app has notched 400 Mn+ downloads, making it one of the most in-demand apps in India and also secured top spots on the Google Play Store as well as the Apple App Store. The app’s success reflects its highly evolved video streaming technology as well as the quality of experience across devices and platforms.</description>
+			<disclaimer lang="en_GB">This plugin is not officially commissioned/supported by Hotstar. The trademark "Hotstar" is registered by "Novi Digital Entertainment Private Limited (Novi)"</disclaimer>
+			<license>MIT</license>
+			<source>https://github.com/Vikassm73/plugin.video.hotstar</source>
+			<platform>all</platform>
+			<language>en</language>
+			<assets>
+				<icon>resources/icon.jpg</icon>
+				<fanart>resources/fanart.png</fanart>
+			</assets>
+			<reuselanguageinvoker>true</reuselanguageinvoker>
+		</extension>
+	</addon>
+	<addon id="plugin.video.sonyliv" version="2.0.15" name="SonyLIV" provider-name="Ajay K">
+		<requires>
+			<import addon="script.module.six" />
+			<import addon="script.module.kodi-six" />
+			<import addon="script.module.requests" version="2.4.3"/>
+			<import addon="script.common.plugin.cache" version="2.5.5"/>
+			<import addon="script.module.web-pdb"/>
+		</requires>
+		<extension point="xbmc.python.pluginsource" library="main.py">
+			<provides>video</provides>
+		</extension>
+		<extension point="xbmc.addon.metadata">
+			<summary>SonyLIV is a one stop destination for Audio/Video content from Sony Pictures Networks</summary>
+			<description>SonyLIV is the first premium Video on Demand (VOD) service by Sony Pictures Networks India Private Limited (SPN), providing multi-screen engagement to users on all devices.
+						Launched in January 2013, it enables users to discover 20 years of rich content from the network channels of Sony Pictures Networks India Private Limited.
+			</description>
+			<platform>all</platform>
+			<website>https://www.sonyliv.com/</website>
+			<disclaimer>This 3rd party addon is not in any way commissioned or endorsed by Sony Pictures Networks India Pvt. Ltd.</disclaimer>
+			<assets>
+				<icon>icon.png</icon>
+				<fanart>fanart.jpg</fanart>
+				<screenshot>resources/screenshot-01.jpg</screenshot>
+				<screenshot>resources/screenshot-02.jpg</screenshot>
+				<screenshot>resources/screenshot-03.jpg</screenshot>
+			</assets>
+		</extension>
+	</addon>
+	<addon id="plugin.video.jiocinema" name="JioCinema" version="1.0.1" provider-name="Ajay K">
+		<requires>
+			<import addon="script.module.six" />
+			<import addon="script.module.kodi-six" />
+			<!--<import addon="script.module.routing" version="0.2.0"/>-->
+			<!--<import addon="script.module.requests" version="2.7.0"/>-->
+			<import addon="script.common.plugin.cache" version="2.5.5"/>
+			<!--<import addon="script.module.resolveurl" version="5.1.0"/>-->
+			<import addon="script.module.codequick" version="1.0.2"/>
+			<import addon="script.module.inputstreamhelper" version="0.5.2"/>
+			<import addon="script.module.web-pdb"/>
+		</requires>
+		<extension point="xbmc.python.pluginsource" library="addon.py">
+			<provides>video</provides>
+		</extension>
+		<extension point="xbmc.addon.metadata">
+			<summary lang="en_GB">  </summary>
+			<description lang="en_GB"> </description>
+			<language> </language>
+			<platform>all</platform>
+			<license>GPL-3.0</license>
+			<forum> </forum>
+			<website> </website>
+			<email> </email>
+			<source> </source>
+			<news> </news>
+			<disclaimer> </disclaimer>
+			<assets>
+				<icon>icon.png</icon>
+				<fanart>fanart.png</fanart>
+			</assets>
+		</extension>
+	</addon>
+	<addon id="repository.tobalan" name="TobAlan Addon Repository" version="2.0.0" provider-name="Tob Alan">
+		<extension point="xbmc.addon.repository" name="TobAlan Addons Repository">
+			<dir>
+				<info compressed="false">https://raw.githubusercontent.com/Vikassm73/AjaykRepo/main/addons.xml</info>
+				<checksum>https://raw.githubusercontent.com/Vikassm73/AjaykRepo/main/addons.xml.md5</checksum>
+				<datadir zip="true">https://raw.githubusercontent.com/Vikassm73/AjaykRepo/main/Zips</datadir>
+			</dir>
+			<dir>
+				<info compressed="false">https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml</info>
+				<checksum>https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml.md5</checksum>
+				<datadir zip="true">https://raw.githubusercontent.com/Gujal00/smrzips/master/zips/</datadir>
+			</dir>
+		</extension>
+		<extension point="xbmc.addon.metadata">
+			<summary>Third party Addons for Kodi</summary>
+			<description>AjayK Addons Repository</description>
+			<platform>all</platform>
+			<assets>
+				<icon>icon.png</icon>
+			</assets>
+		</extension>
+	</addon>
+</addons>
