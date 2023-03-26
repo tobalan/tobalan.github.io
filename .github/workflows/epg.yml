@@ -3,7 +3,7 @@ name: EPG Service
 on:
   workflow_dispatch:
   schedule:
-    - cron: "30 1 * * *" # every day at 1:30am UTC (7:00am IST)
+    - cron: "0 1 * * *" # every day at 1:00am UTC (6:30am IST)
 
 jobs:
   epg:
