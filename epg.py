@@ -14,7 +14,7 @@ error = []
 result = []
 done = 0
 proxies = {
-    "http": "http://13.235.16.78:80",
+    "http": "http://27.107.27.13:80",
     "https": "http://20.219.180.149:3129",
 }
 
