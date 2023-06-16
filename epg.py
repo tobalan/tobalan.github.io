@@ -13,6 +13,10 @@ programme = []
 error = []
 result = []
 done = 0
+proxies = {
+    "http": "http://13.235.16.78:80",
+    "https": "http://20.219.180.149:3129",
+}
 
 
 def genEPG(i, c):
@@ -22,7 +26,7 @@ def genEPG(i, c):
     for day in range(-2, 2):
         try:
             resp = requests.get(f"{API}/v1.3/getepg/get", params={"offset": day,
-                                "channel_id": c['channel_id'], "langId": "6"}).json()
+                                "channel_id": c['channel_id'], "langId": "6"}, proxies=proxies).json()
             day == 0 and channel.append({
                 "@id": c['channel_id'],
                 "display-name": c['channel_name'],
@@ -71,7 +75,7 @@ if __name__ == "__main__":
     stime = time.time()
     # prms = {"os": "android", "devicetype": "phone"}
     raw = requests.get(
-        f"{API}/v3.0/getMobileChannelList/get/?langId=6&os=android&devicetype=phone&usertype=tvYR7NSNn7rymo3F&version=285").json()
+        f"{API}/v3.0/getMobileChannelList/get/?langId=6&os=android&devicetype=phone&usertype=tvYR7NSNn7rymo3F&version=285", proxies=proxies).json()
     result = raw.get("result")
     with ThreadPoolExecutor() as e:
         e.map(genEPG, range(len(result)), result)
