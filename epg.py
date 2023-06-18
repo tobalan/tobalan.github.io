@@ -19,6 +19,8 @@ proxies = {
     "http": "socks5://159.65.149.231:19375",
     # "https": "http://20.219.180.149:3129",
 }
+proxyUrl = "https://api.proxyscrape.com/v2/?request=getproxies&protocol=socks5&timeout=10000&country=IN"
+socksProxy = "159.65.149.231:19375"
 
 
 def genEPG(i, c):
@@ -78,6 +80,24 @@ if __name__ == "__main__":
     stime = time.time()
     # prms = {"os": "android", "devicetype": "phone"}
     try:
+        response = requests.get(proxyUrl)
+        response.raise_for_status()
+
+        # Read the first entry from the downloaded file
+        _proxies = response.text.strip().split("\n")
+        first_proxy = _proxies[0]
+
+        print("First proxy:", first_proxy)
+        socksProxy = first_proxy
+    except HTTPError as exc:
+        code = exc.response.status_code
+        print(f'error calling proxy {code}')
+    except Exception as e:
+        print(e)
+    try:
+        proxies = {
+            "http": "socks5://{socksProxy}".format(socksProxy=socksProxy),
+        }
         raw = requests.get(
             f"{API}/v3.0/getMobileChannelList/get/?langId=6&os=android&devicetype=phone&usertype=tvYR7NSNn7rymo3F&version=285", proxies=proxies).json()
         raw.raise_for_status()
