@@ -15,24 +15,16 @@ programme = []
 error = []
 result = []
 done = 0
-proxies = None
-proxyUrl = "https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=IN&ssl=IN&anonymity=IN"
-httpProxy = "27.107.27.13:80"
-
-
-def chomp(x):
-    if x.endswith("\r\n"):
-        return x[:-2]
-    if x.endswith("\n") or x.endswith("\r"):
-        return x[:-1]
-    return x
+proxies = {
+    "http": "http://27.107.27.13:80",
+    "https": "http://20.219.180.149:3129",
+}
 
 
 def genEPG(i, c):
     global channel, programme, error, result, API, IMG, done
     # for day in range(-7, 8):
     # 1 day future , today and two days past to play catchup
-    # for day in range(-1, 1):
     for day in range(-2, 2):
         try:
             resp = requests.get(f"{API}/v1.3/getepg/get", params={"offset": day,
@@ -85,24 +77,6 @@ if __name__ == "__main__":
     stime = time.time()
     # prms = {"os": "android", "devicetype": "phone"}
     try:
-        response = requests.get(proxyUrl)
-        response.raise_for_status()
-
-        # Read the first entry from the downloaded file
-        _proxies = response.text.strip().split("\n")
-        first_proxy = _proxies[0]
-
-        print("First proxy:", first_proxy)
-        httpProxy = chomp(first_proxy)
-    except HTTPError as exc:
-        code = exc.response.status_code
-        print(f'error calling proxy {code}')
-    except Exception as e:
-        print(e)
-    try:
-        proxies = {
-            "http": "http://{httpProxy}".format(httpProxy=httpProxy),
-        }
         raw = requests.get(
             f"{API}/v3.0/getMobileChannelList/get/?langId=6&os=android&devicetype=phone&usertype=tvYR7NSNn7rymo3F&version=285", proxies=proxies).json()
         raw.raise_for_status()
