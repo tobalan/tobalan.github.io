@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests xmltodict
+          pip install requests xmltodict pysocks
       - name: Get EPG Data
         run: python epg.py epg.xml.gz
       - name: pull latest
