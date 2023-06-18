@@ -1,10 +1,12 @@
 import requests
+from requests.exceptions import HTTPError
 from datetime import datetime
 import xmltodict
 import time
 import sys
 import gzip
 from concurrent.futures.thread import ThreadPoolExecutor
+from http import HTTPStatus
 
 API = "http://jiotv.data.cdn.jio.com/apis"
 IMG = "http://jiotv.catchup.cdn.jio.com/dare_images"
@@ -14,8 +16,8 @@ error = []
 result = []
 done = 0
 proxies = {
-    "http": "http://27.107.27.13:80",
-    "https": "http://20.219.180.149:3129",
+    "http": "socks5://159.65.149.231:19375",
+    # "https": "http://20.219.180.149:3129",
 }
 
 
@@ -74,22 +76,30 @@ def genEPG(i, c):
 if __name__ == "__main__":
     stime = time.time()
     # prms = {"os": "android", "devicetype": "phone"}
-    raw = requests.get(
-        f"{API}/v3.0/getMobileChannelList/get/?langId=6&os=android&devicetype=phone&usertype=tvYR7NSNn7rymo3F&version=285", proxies=proxies).json()
-    result = raw.get("result")
-    with ThreadPoolExecutor() as e:
-        e.map(genEPG, range(len(result)), result)
-    epgdict = {"tv": {
-        "channel": channel,
-        "programme": programme
-    }}
-    epgxml = xmltodict.unparse(epgdict, pretty=True)
-    with open(sys.argv[1], 'wb+') as f:
-        f.write(gzip.compress(epgxml.encode('utf-8')))
-    # with open(sys.argv[1], 'rb') as f_in:
-    #     with gzip.open(sys.argv[2], 'wb+') as f_out:
-    #         f_out.write(gzip.compress(epgxml.encode('utf-8')))
-    print("EPG updated", datetime.now())
-    if len(error) > 0:
-        print(f'error in {error}')
-    print(f"Took {time.time()-stime:.2f} seconds")
+    try:
+        raw = requests.get(
+            f"{API}/v3.0/getMobileChannelList/get/?langId=6&os=android&devicetype=phone&usertype=tvYR7NSNn7rymo3F&version=285", proxies=proxies).json()
+        raw.raise_for_status()
+    except HTTPError as exc:
+        code = exc.response.status_code
+        print(f'error calling mobilecahnnelList {code}')
+    except Exception as e:
+        print(e)
+    else:
+        result = raw.get("result")
+        with ThreadPoolExecutor() as e:
+            e.map(genEPG, range(len(result)), result)
+        epgdict = {"tv": {
+            "channel": channel,
+            "programme": programme
+        }}
+        epgxml = xmltodict.unparse(epgdict, pretty=True)
+        with open(sys.argv[1], 'wb+') as f:
+            f.write(gzip.compress(epgxml.encode('utf-8')))
+        # with open(sys.argv[1], 'rb') as f_in:
+        #     with gzip.open(sys.argv[2], 'wb+') as f_out:
+        #         f_out.write(gzip.compress(epgxml.encode('utf-8')))
+        print("EPG updated", datetime.now())
+        if len(error) > 0:
+            print(f'error in {error}')
+        print(f"Took {time.time()-stime:.2f} seconds")
