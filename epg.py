@@ -28,7 +28,7 @@ def genEPG(i, c):
     for day in range(-2, 2):
         try:
             resp = requests.get(f"{API}/v1.3/getepg/get", params={"offset": day,
-                                "channel_id": c['channel_id'], "langId": "6"}, proxies=proxies).json()
+                                "channel_id": c['channel_id'], "langId": "6"}).json()
             day == 0 and channel.append({
                 "@id": c['channel_id'],
                 "display-name": c['channel_name'],
