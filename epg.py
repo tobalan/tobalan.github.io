@@ -77,8 +77,10 @@ if __name__ == "__main__":
     stime = time.time()
     # prms = {"os": "android", "devicetype": "phone"}
     try:
-        raw = requests.get(
-            f"{API}/v3.0/getMobileChannelList/get/?langId=6&os=android&devicetype=phone&usertype=tvYR7NSNn7rymo3F&version=285", proxies=proxies).json()
+        resp = requests.get(
+            f"{API}/v3.0/getMobileChannelList/get/?langId=6&os=android&devicetype=phone&usertype=tvYR7NSNn7rymo3F&version=285", proxies=proxies)
+        resp.raise_for_status()
+        raw = resp.json
     except HTTPError as exc:
         code = exc.response.status_code
         print(f'error calling mobilecahnnelList {code}')
