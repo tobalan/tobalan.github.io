@@ -112,7 +112,7 @@ if __name__ == "__main__":
     httpProxy=get_working_proxy()
     proxies = {
         "http": "http://{httpProxy}".format(httpProxy=httpProxy),
-        "http": "http://{httpProxy}".format(httpProxy=httpProxy),
+        "https": "http://{httpProxy}".format(httpProxy=httpProxy),
     }
     try:
         resp = requests.get(
