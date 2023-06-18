@@ -46,9 +46,11 @@ def get_working_proxy():
             pass
     if working_proxy:
         print("got working proxy")
+        print(working_proxy)
         return working_proxy
     else:
-        print("No working proxy found")
+        print("No working proxy found , using fallback")
+        print(first_proxy)
     return first_proxy
 
 
