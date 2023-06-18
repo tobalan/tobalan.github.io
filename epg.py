@@ -19,16 +19,47 @@ proxies = {
     "http": "http://27.107.27.13:80",
     "https": "http://20.219.180.149:3129",
 }
+first_proxy = "27.107.27.13:80"
+proxyListUrl = "https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=IN&ssl=IN&anonymity=IN"
+
+
+def get_working_proxy():
+    # Set up requests with the proxy
+    response = requests.get(proxyListUrl)
+    response.raise_for_status()
+    # Read the first entry from the downloaded file
+    proxies = response.text.strip().split("\r\n")
+    print(proxies)
+    working_proxy = None
+    for prx in proxies:
+        tproxies = {
+            "http": "http://{prx}".format(prx=prx),
+        }
+        try:
+            test_url = f"{API}/v3.0/getMobileChannelList/get/?langId=6&os=android&devicetype=phone&usertype=tvYR7NSNn7rymo3F&version=285"
+            response = requests.get(test_url, proxies=tproxies, timeout=5)
+
+            if response.status_code == 200:
+                working_proxy = prx
+                break
+        except requests.exceptions.RequestException:
+            pass
+    if working_proxy:
+        print("got working proxy")
+        return working_proxy
+    else:
+        print("No working proxy found")
+    return first_proxy
 
 
 def genEPG(i, c):
     global channel, programme, error, result, API, IMG, done
     # for day in range(-7, 8):
     # 1 day future , today and two days past to play catchup
-    for day in range(-1, 0):
+    for day in range(-2, 2):
         try:
             resp = requests.get(f"{API}/v1.3/getepg/get", params={"offset": day,
-                                "channel_id": c['channel_id'], "langId": "6"}).json()
+                                "channel_id": c['channel_id'], "langId": "6"}, proxies=proxies).json()
             day == 0 and channel.append({
                 "@id": c['channel_id'],
                 "display-name": c['channel_name'],
@@ -76,6 +107,11 @@ def genEPG(i, c):
 if __name__ == "__main__":
     stime = time.time()
     # prms = {"os": "android", "devicetype": "phone"}
+    httpProxy=get_working_proxy()
+    proxies = {
+        "http": "http://{httpProxy}".format(httpProxy=httpProxy),
+        "http": "http://{httpProxy}".format(httpProxy=httpProxy),
+    }
     try:
         resp = requests.get(
             f"{API}/v3.0/getMobileChannelList/get/?langId=6&os=android&devicetype=phone&usertype=tvYR7NSNn7rymo3F&version=285", proxies=proxies)
