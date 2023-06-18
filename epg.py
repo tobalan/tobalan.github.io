@@ -20,6 +20,14 @@ proxyUrl = "https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&tim
 httpProxy = "27.107.27.13:80"
 
 
+def chomp(x):
+    if x.endswith("\r\n"):
+        return x[:-2]
+    if x.endswith("\n") or x.endswith("\r"):
+        return x[:-1]
+    return x
+
+
 def genEPG(i, c):
     global channel, programme, error, result, API, IMG, done
     # for day in range(-7, 8):
@@ -85,7 +93,7 @@ if __name__ == "__main__":
         first_proxy = _proxies[0]
 
         print("First proxy:", first_proxy)
-        httpProxy = first_proxy
+        httpProxy = chomp(first_proxy)
     except HTTPError as exc:
         code = exc.response.status_code
         print(f'error calling proxy {code}')
