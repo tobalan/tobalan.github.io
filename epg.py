@@ -19,8 +19,9 @@ proxies = {
     "http": "http://27.107.27.13:80",
     "https": "http://20.219.180.149:3129",
 }
-# first_proxy = "27.107.27.13:80"
+# first_proxy = "27.107.27.13:80" #https://premiumproxy.net/search-proxy
 first_proxy = "27.107.27.8:80"
+# first_proxy = "144.24.102.221:3128"
 proxyListUrl = "https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=IN&ssl=IN&anonymity=IN"
 useFallback = True
 
