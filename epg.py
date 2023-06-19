@@ -21,6 +21,7 @@ proxies = {
 }
 first_proxy = "27.107.27.13:80"
 proxyListUrl = "https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=IN&ssl=IN&anonymity=IN"
+useFallback = True
 
 
 def get_working_proxy():
@@ -109,7 +110,10 @@ def genEPG(i, c):
 if __name__ == "__main__":
     stime = time.time()
     # prms = {"os": "android", "devicetype": "phone"}
-    httpProxy=get_working_proxy()
+    if useFallback :
+        httpProxy=first_proxy
+    else:
+        httpProxy=get_working_proxy()
     proxies = {
         "http": "http://{httpProxy}".format(httpProxy=httpProxy),
         "https": "http://{httpProxy}".format(httpProxy=httpProxy),
