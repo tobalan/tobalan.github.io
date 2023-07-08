@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-    <addon id="plugin.video.jiotv" name="JioTV" version="2.3.5" provider-name="tobalan">
+    <addon id="plugin.video.jiotv" name="JioTV" version="2.3.6" provider-name="tobalan">
         <requires>
             <import addon="xbmc.python" version="3.0.0" />
             <import addon="script.module.codequick" version="1.0.2" />
@@ -25,6 +25,9 @@
             <email>kodi@botallen.com</email>
             <source>https://github.com/tobalan/plugin.video.jiotv</source>
             <news>
+                [- 2.3.6 -]
+                [added] language filter
+
                 [- 2.3.5 -]
                 [added] handle playback exceptions
                 [added] remove unused code
