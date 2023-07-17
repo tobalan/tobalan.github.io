@@ -23,8 +23,8 @@ proxies = {
 # first_proxy = "27.107.27.8:80" not working
 first_proxy = "139.59.1.14:8080"
 # first_proxy = "144.24.102.221:3128"
-proxyListUrl = "https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=IN&ssl=IN&anonymity=IN"
-useFallback = True
+proxyListUrl = "https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=1000&country=IN&ssl=IN&anonymity=IN"
+useFallback = False
 
 
 def get_working_proxy():
