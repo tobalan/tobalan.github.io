@@ -19,10 +19,12 @@ proxies = {
     "http": "http://27.107.27.13:80",
     "https": "http://20.219.180.149:3129",
 }
-# first_proxy = "27.107.27.13:80" #https://premiumproxy.net/search-proxy
-# first_proxy = "27.107.27.8:80" not working
-first_proxy = "139.59.1.14:8080"
-# first_proxy = "144.24.102.221:3128"
+# fallback_proxy = "27.107.27.13:80" #https://premiumproxy.net/search-proxy
+# fallback_proxy = "27.107.27.8:80" not working
+# fallback_proxy = "139.59.1.14:8080"
+# fallback_proxy = "20.219.235.172:3129"
+fallback_proxy = "124.123.108.15:80"
+# fallback_proxy = "144.24.102.221:3128"
 proxyListUrl = "https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=1000&country=IN&ssl=IN&anonymity=IN"
 useFallback = False
 
@@ -54,8 +56,8 @@ def get_working_proxy():
         return working_proxy
     else:
         print("No working proxy found , using fallback")
-        print(first_proxy)
-    return first_proxy
+        print(fallback_proxy)
+    return fallback_proxy
 
 
 def genEPG(i, c):
@@ -114,7 +116,7 @@ if __name__ == "__main__":
     stime = time.time()
     # prms = {"os": "android", "devicetype": "phone"}
     if useFallback :
-        httpProxy=first_proxy
+        httpProxy=fallback_proxy
     else:
         httpProxy=get_working_proxy()
     proxies = {
