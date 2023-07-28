@@ -25,7 +25,8 @@ proxies = {
 # fallback_proxy = "20.219.235.172:3129"
 fallback_proxy = "124.123.108.15:80"
 # fallback_proxy = "144.24.102.221:3128"
-proxyListUrl = "https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=1000&country=IN&ssl=IN&anonymity=IN"
+proxyTimeOut = 3000
+proxyListUrl = f"https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout={proxyTimeOut}&country=IN&ssl=IN&anonymity=IN"
 useFallback = False
 maxRetryProxyCount = 10
 
@@ -49,11 +50,12 @@ def retry_on_exception(max_retries, delay=1):
                     retries += 1
                     time.sleep(delay)
             raise Exception(
-                f"Function '{func._name_}' failed after {max_retries} retries.")
+                f"Function '{func.__name__}' failed after {max_retries} retries.")
 
         return wrapper
 
     return decorator
+
 
 @retry_on_exception(max_retries=10, delay=5)
 def get_working_proxy():
