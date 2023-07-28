@@ -27,8 +27,35 @@ fallback_proxy = "124.123.108.15:80"
 # fallback_proxy = "144.24.102.221:3128"
 proxyListUrl = "https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=1000&country=IN&ssl=IN&anonymity=IN"
 useFallback = False
+maxRetryProxyCount = 10
 
 
+class NoProxyFound(Exception):
+    def _init_(self):
+        self.message = "No working proxy found"
+        super()._init_(self.message)
+
+
+def retry_on_exception(max_retries, delay=1):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            retries = 0
+            while retries < max_retries:
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    print(
+                        f"Retry {retries + 1}/{max_retries} - Exception: {e}")
+                    retries += 1
+                    time.sleep(delay)
+            raise Exception(
+                f"Function '{func._name_}' failed after {max_retries} retries.")
+
+        return wrapper
+
+    return decorator
+
+@retry_on_exception(max_retries=10, delay=5)
 def get_working_proxy():
     # Set up requests with the proxy
     response = requests.get(proxyListUrl)
@@ -55,9 +82,12 @@ def get_working_proxy():
         print(working_proxy)
         return working_proxy
     else:
-        print("No working proxy found , using fallback")
-        print(fallback_proxy)
-    return fallback_proxy
+        print("No working proxy found")
+        raise NoProxyFound()
+
+        # return get_working_proxy()
+    #     print(fallback_proxy)
+    # return fallback_proxy
 
 
 def genEPG(i, c):
@@ -115,10 +145,10 @@ def genEPG(i, c):
 if __name__ == "__main__":
     stime = time.time()
     # prms = {"os": "android", "devicetype": "phone"}
-    if useFallback :
-        httpProxy=fallback_proxy
+    if useFallback:
+        httpProxy = fallback_proxy
     else:
-        httpProxy=get_working_proxy()
+        httpProxy = get_working_proxy()
     proxies = {
         "http": "http://{httpProxy}".format(httpProxy=httpProxy),
         "https": "http://{httpProxy}".format(httpProxy=httpProxy),
