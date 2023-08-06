@@ -51,6 +51,7 @@ jobs:
         run: |
           git pull
           mv ../plugin.video.jiotv-${{ steps.octokit.outputs.tag }}.zip Zips/plugin.video.jiotv
+          md5sum addons.xml > addons.xml.md5
         # Commit all changed files back to the repository
         # cd ..
         # ls -lart
