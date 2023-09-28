@@ -26,6 +26,8 @@ jobs:
           pip install requests xmltodict pysocks
       - name: Get EPG Data
         run: python epg.py epg.xml.gz
+        env:
+          RES_PXY: ${{ secrets.API_KEY }}
       - name: pull latest
         run: |
           git pull
