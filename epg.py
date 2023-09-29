@@ -26,7 +26,7 @@ proxies = {
 # fallback_proxy = "20.219.235.172:3129"
 fallback_proxy = "124.123.108.15:80"
 # fallback_proxy = "144.24.102.221:3128"
-residential_proxy = os.getenv("API_KEY", "125.99.106.250:3128")
+residential_proxy = os.getenv("RES_PXY", "125.99.106.250:3128")
 proxyTimeOut = 10000
 proxyListUrl = f"https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout={proxyTimeOut}&country=IN&ssl=IN&anonymity=IN"
 useFallback = False
