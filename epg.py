@@ -65,8 +65,8 @@ def get_working_proxy():
     response.raise_for_status()
     # Read the first entry from the downloaded file
     proxies = response.text.strip().split("\r\n")
-    proxies.insert(0, residential_proxy)
     print(proxies)
+    proxies.insert(0, residential_proxy)
     working_proxy = None
     for prx in proxies:
         tproxies = {
