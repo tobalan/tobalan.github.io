@@ -26,6 +26,7 @@ proxies = {
 # fallback_proxy = "20.219.235.172:3129"
 fallback_proxy = "124.123.108.15:80"
 # fallback_proxy = "144.24.102.221:3128"
+residential_proxy = os.getenv("API_KEY", "124.123.108.15:80")
 proxyTimeOut = 10000
 proxyListUrl = f"https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout={proxyTimeOut}&country=IN&ssl=IN&anonymity=IN"
 useFallback = False
@@ -64,6 +65,7 @@ def get_working_proxy():
     response.raise_for_status()
     # Read the first entry from the downloaded file
     proxies = response.text.strip().split("\r\n")
+    proxies.insert(0, residential_proxy)
     print(proxies)
     working_proxy = None
     for prx in proxies:
