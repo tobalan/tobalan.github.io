@@ -83,7 +83,7 @@ def get_working_proxy():
             pass
     if working_proxy:
         print("got working proxy")
-        print(working_proxy)
+        # print(working_proxy)
         return working_proxy
     else:
         print("No working proxy found")
