@@ -7,6 +7,7 @@ import sys
 import gzip
 from concurrent.futures.thread import ThreadPoolExecutor
 from http import HTTPStatus
+import os
 
 API = "http://jiotv.data.cdn.jio.com/apis"
 IMG = "http://jiotv.catchup.cdn.jio.com/dare_images"
