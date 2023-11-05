@@ -28,6 +28,7 @@ jobs:
         run: python epg.py epg.xml.gz
         env:
           RES_PXY: ${{ secrets.API_KEY }}
+          RES_PXY2: ${{ secrets.ACC2 }}
       - name: pull latest
         run: |
           git pull
