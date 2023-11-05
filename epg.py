@@ -94,56 +94,63 @@ def get_working_proxy():
         # return get_working_proxy()
     #     print(fallback_proxy)
     # return fallback_proxy
-
+MAX_RETRY = 10
 
 def genEPG(i, c):
     global channel, programme, error, result, API, IMG, done
     # for day in range(-7, 8):
     # 1 day future , today and two days past to play catchup
     for day in range(-2, 2):
-        try:
-            resp = requests.get(f"{API}/v1.3/getepg/get", params={"offset": day,
-                                "channel_id": c['channel_id'], "langId": "6"}, proxies=proxies).json()
-            day == 0 and channel.append({
-                "@id": c['channel_id'],
-                "display-name": c['channel_name'],
-                "icon": {
-                    "@src": f"{IMG}/images/{c['logoUrl']}"
-                }
-            })
-            for eachEGP in resp.get("epg"):
-                pdict = {
-                    "@start": datetime.utcfromtimestamp(int(eachEGP['startEpoch']*.001)).strftime('%Y%m%d%H%M%S'),
-                    "@stop": datetime.utcfromtimestamp(int(eachEGP['endEpoch']*.001)).strftime('%Y%m%d%H%M%S'),
-                    "@channel": eachEGP['channel_id'],
-                    "@catchup-id": eachEGP['srno'],
-                    "title": eachEGP['showname'],
-                    "desc": eachEGP['description'],
-                    "category": eachEGP['showCategory'],
-                    # "date": datetime.today().strftime('%Y%m%d'),
-                    # "star-rating": {
-                    #     "value": "10/10"
-                    # },
+        retry_count = 0
+        while retry_count < MAX_RETRY:
+            try:
+                resp = requests.get(f"{API}/v1.3/getepg/get", params={"offset": day,
+                                    "channel_id": c['channel_id'], "langId": "6"}, proxies=proxies).json()
+                day == 0 and channel.append({
+                    "@id": c['channel_id'],
+                    "display-name": c['channel_name'],
                     "icon": {
-                        "@src": f"{IMG}/shows/{eachEGP['episodePoster']}"
+                        "@src": f"{IMG}/images/{c['logoUrl']}"
                     }
-                }
-                if eachEGP['episode_num'] > -1:
-                    pdict["episode-num"] = {
-                        "@system": "xmltv_ns",
-                        "#text": f"0.{eachEGP['episode_num']}"
+                })
+                for eachEGP in resp.get("epg"):
+                    pdict = {
+                        "@start": datetime.utcfromtimestamp(int(eachEGP['startEpoch']*.001)).strftime('%Y%m%d%H%M%S'),
+                        "@stop": datetime.utcfromtimestamp(int(eachEGP['endEpoch']*.001)).strftime('%Y%m%d%H%M%S'),
+                        "@channel": eachEGP['channel_id'],
+                        "@catchup-id": eachEGP['srno'],
+                        "title": eachEGP['showname'],
+                        "desc": eachEGP['description'],
+                        "category": eachEGP['showCategory'],
+                        # "date": datetime.today().strftime('%Y%m%d'),
+                        # "star-rating": {
+                        #     "value": "10/10"
+                        # },
+                        "icon": {
+                            "@src": f"{IMG}/shows/{eachEGP['episodePoster']}"
+                        }
                     }
-                if eachEGP.get("director") or eachEGP.get("starCast"):
-                    pdict["credits"] = {
-                        "director": eachEGP.get("director"),
-                        "actor": eachEGP.get("starCast") and eachEGP.get("starCast").split(', ')
-                    }
-                if eachEGP.get("episode_desc"):
-                    pdict["sub-title"] = eachEGP.get("episode_desc")
-                programme.append(pdict)
-        except Exception as e:
-            print(e)
-            error.append(c['channel_id'])
+                    if eachEGP['episode_num'] > -1:
+                        pdict["episode-num"] = {
+                            "@system": "xmltv_ns",
+                            "#text": f"0.{eachEGP['episode_num']}"
+                        }
+                    if eachEGP.get("director") or eachEGP.get("starCast"):
+                        pdict["credits"] = {
+                            "director": eachEGP.get("director"),
+                            "actor": eachEGP.get("starCast") and eachEGP.get("starCast").split(', ')
+                        }
+                    if eachEGP.get("episode_desc"):
+                        pdict["sub-title"] = eachEGP.get("episode_desc")
+                    programme.append(pdict)
+                break  # Break out of the retry loop if successful
+            except Exception as e:
+                print(f"Retry failed (Retry Count: {retry_count+1}): {e}")
+                retry_count += 1
+                if retry_count == MAX_RETRY:
+                    error.append(c['channel_id'])
+                else:
+                    time.sleep(2)  # Retry after sleeping for 2 seconds
     done += 1
     # print(f"{done*100/len(result):.2f} %", end="\r")
 
